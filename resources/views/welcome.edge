@@ -2,7 +2,7 @@
 
 @section('content')
   <ul class="flex items-center flex-col py-8">
-    @each(post in posts)
+    @each(post in await loadPosts())
     <li class="my-6 p-8 rounded-md bg-white w-1/2">
       <a href="#" class="text-3xl text-blue-600 font-bold hover:text-blue-800">{{ post.title }}</a>
       <p class="mt-6 text-gray-700 text-xl">{{ post.content }}</p>
