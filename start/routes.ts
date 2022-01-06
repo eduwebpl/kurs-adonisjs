@@ -21,3 +21,4 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', 'PostsController.index')
+Route.get('/posts/:id', 'PostsController.show').as('show-post')

@@ -3,14 +3,20 @@ import Post from "App/Models/Post";
 
 export default class PostsController {
   public async index({ view }: HttpContextContract) {
-    return view.render('welcome', {})
+    const posts = await Post.all()
+
+    return view.render('welcome', { posts })
   }
 
   public async create({}: HttpContextContract) {}
 
   public async store({}: HttpContextContract) {}
 
-  public async show({}: HttpContextContract) {}
+  public async show({ params, view }: HttpContextContract) {
+    const post = await Post.findOrFail(params.id)
+
+    return view.render('posts/show', { post })
+  }
 
   public async edit({}: HttpContextContract) {}
 
