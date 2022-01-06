@@ -10,8 +10,14 @@
 </head>
 <body>
 
-  <main>
-    <h1 class="text-red-500 text-4xl">Hello world</h1>
-  </main>
+  <ul>
+    @each(post in posts)
+      <li class="mb-6">
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.content }}</p>
+      </li>
+    @end
+  </ul>
+
 </body>
 </html>
