@@ -20,6 +20,4 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/posts/:id?', async ({ params }) => {
-  return params.id ? `This is post number ${params.id}` : `This is post page`
-})
+Route.get('/', 'PostsController.index')
