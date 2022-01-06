@@ -21,4 +21,6 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/', 'PostsController.index')
+Route.get('/posts/create-form', 'PostsController.create').as('create-form')
+Route.post('/posts/create-post', 'PostsController.store').as('create-post')
 Route.get('/posts/:slug', 'PostsController.show').as('show-post')

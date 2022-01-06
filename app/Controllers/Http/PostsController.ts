@@ -8,9 +8,18 @@ export default class PostsController {
     return view.render('welcome', { posts })
   }
 
-  public async create({}: HttpContextContract) {}
+  public async create({ view }: HttpContextContract) {
+    return view.render('posts/createOrEdit')
+  }
 
-  public async store({}: HttpContextContract) {}
+  public async store({ request, response }: HttpContextContract) {
+    await Post.create({
+      title: request.input('title'),
+      content: request.input('content')
+    })
+
+    return response.redirect('/')
+  }
 
   public async show({ params, view }: HttpContextContract) {
     const post = await Post.findByOrFail('slug', params.slug)

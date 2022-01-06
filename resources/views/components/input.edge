@@ -10,4 +10,7 @@
       <input class="w-full border border-gray-300 rounded p-2 {{ errors ? 'border-red-500' : '' }}" type="{{ type ?? 'text' }}" name="{{ name }}" value="{{ value ?? '' }}" />
     @endif
   </label>
+  @if (errors)
+    <small class="text-red-500">{{ errors.join(', ') }}</small>
+  @endif
 </div>
