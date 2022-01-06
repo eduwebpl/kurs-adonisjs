@@ -1,6 +1,8 @@
 @layout('layouts/main')
 
 @section('content')
-  {{ post.title }}
-  {{ post.content }}
+  <div class="mx-auto mt-12 p-8 rounded-md bg-white w-1/2">
+    <h1 class="text-blue-700 font-bold text-3xl mb-6">{{ post.title }}</h1>
+    <p class="text-xl text-gray-500">{{ post.content }}</p>
+  </div>
 @endsection

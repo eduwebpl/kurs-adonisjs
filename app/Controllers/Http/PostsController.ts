@@ -13,7 +13,7 @@ export default class PostsController {
   public async store({}: HttpContextContract) {}
 
   public async show({ params, view }: HttpContextContract) {
-    const post = await Post.findOrFail(params.id)
+    const post = await Post.findByOrFail('slug', params.slug)
 
     return view.render('posts/show', { post })
   }

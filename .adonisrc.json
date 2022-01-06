@@ -31,7 +31,8 @@
     "@adonisjs/view",
     "@adonisjs/shield",
     "adonis-mix-asset",
-    "@adonisjs/lucid"
+    "@adonisjs/lucid",
+    "@adonisjs/lucid-slugify"
   ],
   "metaFiles": [
     {
