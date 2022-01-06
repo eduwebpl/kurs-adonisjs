@@ -3,6 +3,7 @@
 @section('content')
 
   <form action="{{ route('create-post') }}" method="POST">
+    {{ csrfField() }}
 
     <div class="w-1/2 mx-auto mt-12 bg-white p-8 rounded-md">
       @!input({
