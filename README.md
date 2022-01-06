@@ -1,2 +1,1 @@
 # kurs-adonisjs
-# kurs-adonisjs
