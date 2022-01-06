@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AdonisJS - A fully featured web framework for Node.js</title>
+  <title>Adoniblog</title>
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ mix('css/app.css') }}">
   <script src="{{ mix('js/app.js') }}"></script>
 </head>
-<body>
+<body class="bg-sky-50">
 
-  <ul>
+  <ul class="flex items-center flex-col py-8">
     @each(post in posts)
-      <li class="mb-6">
-        <h1>{{ post.title }}</h1>
-        <p>{{ post.content }}</p>
+      <li class="my-6 p-8 rounded-md bg-white w-1/2">
+        <a href="#" class="text-3xl text-blue-600 font-bold hover:text-blue-800">{{ post.title }}</a>
+        <p class="mt-6 text-gray-700 text-xl">{{ post.content }}</p>
       </li>
-    @end
+    @endeach
   </ul>
 
 </body>
