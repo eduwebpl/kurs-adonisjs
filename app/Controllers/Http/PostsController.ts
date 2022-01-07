@@ -24,10 +24,12 @@ export default class PostsController {
     return view.render('posts/createOrEdit')
   }
 
-  public async store({ request, response }: HttpContextContract) {
+  public async store({ request, response, session }: HttpContextContract) {
     const post = await request.validate(CreatePostValidator)
 
     await Post.create(post)
+
+    session.flash('notification', 'Post został poprawnie dodany!')
 
     return response.redirect('/')
   }
