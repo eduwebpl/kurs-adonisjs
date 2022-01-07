@@ -1,6 +1,8 @@
 @layout('layouts/main')
 
 @section('content')
+  @include('partials/_searchbar')
+
   <ul class="flex items-center flex-col py-8">
     @each(post in posts)
     <li class="my-6 p-8 rounded-md bg-white w-1/2">
@@ -11,4 +13,12 @@
     </li>
     @endeach
   </ul>
+
+  <div class="w-full flex justify-center items-center gap-2 mb-12">
+    @each(anchor in posts.getUrlsForRange(1, posts.lastPage))
+    <a href="{{ anchor.url }}" class="no-underline text-gray-600 text-xl hover:text-blue-600 transition ease-in-out duration-100 {{ anchor.isActive ? 'text-blue-600 font-bold' : '' }}">
+      {{ anchor.page }}
+    </a>
+    @endeach
+  </div>
 @endsection

@@ -2,8 +2,11 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Post from "App/Models/Post";
 
 export default class PostsController {
-  public async index({ view }: HttpContextContract) {
-    const posts = await Post.all()
+  public async index({ view, request }: HttpContextContract) {
+    const page = request.input('page', 1)
+    const limit = 4
+
+    const posts = await Post.query().paginate(page, limit)
 
     return view.render('welcome', { posts })
   }
