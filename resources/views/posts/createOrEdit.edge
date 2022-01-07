@@ -2,13 +2,18 @@
 
 @section('content')
 
-  <form action="{{ route('create-post') }}" method="POST">
+  @set('action', post
+  ? route('update-post', [post.id], { qs: { _method: 'PUT' } })
+  : route('create-post'))
+
+  <form action="{{ action }}" method="POST">
     {{ csrfField() }}
 
     <div class="w-1/2 mx-auto mt-12 bg-white p-8 rounded-md">
       @!input({
       label: 'Tytuł wpisu',
       name: 'title',
+      value: flashMessages.get('title') ?? post?.title,
       })
 
       @!input({
@@ -16,6 +21,7 @@
       type: 'textarea',
       name: 'content',
       rows: 5,
+      value: flashMessages.get('content') ?? post?.title,
       })
 
       <button type="submit" class="bg-blue-50 p-2 rounded-md trans-ease text-blue-700 hover:text-blue-900">Dodaj wpis</button>

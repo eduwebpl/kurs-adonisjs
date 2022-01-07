@@ -27,9 +27,24 @@ export default class PostsController {
     return view.render('posts/show', { post })
   }
 
-  public async edit({}: HttpContextContract) {}
+  public async edit({ view, params }: HttpContextContract) {
+    const post = await Post.findOrFail(params.id)
 
-  public async update({}: HttpContextContract) {}
+    return view.render('posts/createOrEdit', { post })
+  }
+
+  public async update({ request, response, params }: HttpContextContract) {
+    const post = await Post.findOrFail(params.id)
+
+    post.merge({
+      title: request.input('title'),
+      content: request.input('content')
+    })
+
+    await post.save()
+
+    return response.redirect('/')
+  }
 
   public async destroy({}: HttpContextContract) {}
 }
