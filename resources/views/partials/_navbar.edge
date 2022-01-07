@@ -13,8 +13,8 @@
       </a>
       <a href="{{ route('create-form') }}" class="bg-blue-700 text-white font-semibold text-xl p-4 rounded-lg hover:bg-blue-900">Dodaj wpis</a>
     @else
-      <a href="/login" class="text-blue-700 transition ease-in-out duration-150 hover:text-blue-900">Zaloguj się</a>
-      <a href="/register" class="text-blue-700 transition ease-in-out duration-150 hover:text-blue-900">Zarejestruj się</a>
+      <a href="{{ route('show-login') }}" class="text-blue-700 transition ease-in-out duration-150 hover:text-blue-900">Zaloguj się</a>
+      <a href="{{ route('show-register') }}" class="text-blue-700 transition ease-in-out duration-150 hover:text-blue-900">Zarejestruj się</a>
     @endif
   </div>
 </header>

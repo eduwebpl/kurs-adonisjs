@@ -17,6 +17,22 @@ export default class AuthController {
     return response.redirect().toRoute('/')
   }
 
+  public showLogin({ view }: HttpContextContract) {
+    return view.render('auth/login')
+  }
+
+  public async login({ request, auth, response }: HttpContextContract) {
+    const { email, password } = request.only(['email', 'password'])
+
+    try {
+      await auth.attempt(email, password)
+
+      return response.redirect().toRoute('home')
+    } catch(err) {
+      return response.redirect().back()
+    }
+  }
+
   public async logout({ response, auth }: HttpContextContract) {
     await auth.logout()
 
