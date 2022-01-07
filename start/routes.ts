@@ -24,7 +24,7 @@ Route.get('/', 'PostsController.index').as('home')
 
 // Posts
 
-Route.get('/posts/create-form', 'PostsController.create').as('create-form')
+Route.get('/posts/create-form', 'PostsController.create').middleware('auth').as('create-form')
 Route.post('/posts/create-post', 'PostsController.store').as('create-post')
 Route.get('/posts/update-post/:id', 'PostsController.edit').as('edit-post')
 Route.put('/posts/update-post/:id', 'PostsCOntroller.update').as('update-post')
@@ -33,8 +33,11 @@ Route.get('/posts/:slug', 'PostsController.show').as('show-post')
 
 // Auth
 
-Route.get('/register', 'AuthController.showRegister').as('show-register')
+Route.group(() => {
+  Route.get('/login', 'AuthController.showLogin').as('show-login')
+  Route.get('/register', 'AuthController.showRegister').as('show-register')
+}).middleware('guest')
+
 Route.post('/register', 'AuthController.register').as('register')
 Route.post('/logout', 'AuthController.logout').as('logout')
-Route.get('/login', 'AuthController.showLogin').as('show-login')
 Route.post('/login', 'AuthController.login').as('login')
