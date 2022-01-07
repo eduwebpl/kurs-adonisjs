@@ -41,6 +41,9 @@ Route.group(() => {
 Route.post('/register', 'AuthController.register').as('register')
 Route.post('/logout', 'AuthController.logout').as('logout')
 Route.post('/login', 'AuthController.login').as('login')
-
 Route.get('/edit-profile', 'AuthController.showEdit').middleware('auth').as('edit-profile')
 Route.post('/edit-profile', 'AuthController.update').as('update-profile')
+
+// Comments
+
+Route.post('/posts/:post_id/comments', 'CommentsController.store').as('create-comment')

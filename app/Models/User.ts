@@ -6,6 +6,7 @@ import {
   AttachmentContract
 } from '@ioc:Adonis/Addons/AttachmentLite'
 import Post from "App/Models/Post";
+import Comment from "App/Models/Comment";
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -28,6 +29,9 @@ export default class User extends BaseModel {
 
   @hasMany(() => Post)
   public posts: HasMany<typeof Post>
+
+  @hasMany(() => Comment)
+  public comments: HasMany<typeof Comment>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -1,0 +1,30 @@
+<section class="comments mt-8">
+  <form action="{{ route('create-comment', { post_id: post.id }) }}" method="POST">
+    {{ csrfField() }}
+
+    <textarea name="comment" id="comment" placeholder="Wpisz treść komentarza" class="rounded-md mb-2 border-2 outline-blue-500 focus:outline-none transition-all ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent resize-none w-full h-24 p-2" {{ auth.isLoggedIn ? '' : 'disabled' }}></textarea>
+    <button type="submit"  class="text-center rounded-md p-2 text-white mb-6 bg-blue-700" {{ auth.isLoggedIn ? '' : 'disabled' }}>Dodaj komentarz</button>
+  </form>
+  @if(post.comments.length)
+    <ul>
+      @each(comment in post.comments)
+      <li class="mb-4 p-6 bg-gray-50 transition-all ease-in-out duration-200 hover:bg-gray-100 rounded-md w-full flex flex-row items-center gap-6">
+        @if(comment.user.avatar != null)
+          <img src="/uploads/{{ comment.user.avatar.name }}" alt="" class="w-16 h-16 rounded-full">
+        @else
+          <img src="/uploads/default.png" alt="" class="w-16 h-16 rounded-full">
+        @endif
+        <div>
+          {{ comment.user.name }}
+          <span class="text-gray-500 block mb-4 text-xl">
+            {{ comment.createdAt.toFormat('hh:mm dd.LL.yyyy') }}
+          </span>
+          <p>
+            {{ comment.content }}
+          </p>
+        </div>
+      </li>
+      @endeach
+    </ul>
+  @endif
+</section>

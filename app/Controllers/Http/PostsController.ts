@@ -37,6 +37,8 @@ export default class PostsController {
   public async show({ params, view }: HttpContextContract) {
     const post = await Post.findByOrFail('slug', params.slug)
 
+    await post.preload('comments', query => query.preload('user'))
+
     return view.render('posts/show', { post })
   }
 
