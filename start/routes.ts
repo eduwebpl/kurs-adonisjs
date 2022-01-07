@@ -20,9 +20,10 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/', 'PostsController.index')
+Route.get('/', 'PostsController.index').as('home')
 Route.get('/posts/create-form', 'PostsController.create').as('create-form')
 Route.post('/posts/create-post', 'PostsController.store').as('create-post')
 Route.get('/posts/update-post/:id', 'PostsController.edit').as('edit-post')
 Route.put('/posts/update-post/:id', 'PostsCOntroller.update').as('update-post')
+Route.delete('/posts/delete/:id', 'PostsController.destroy').as('delete-post')
 Route.get('/posts/:slug', 'PostsController.show').as('show-post')
