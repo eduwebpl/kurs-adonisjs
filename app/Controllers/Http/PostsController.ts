@@ -6,6 +6,14 @@ export default class PostsController {
     const page = request.input('page', 1)
     const limit = 4
 
+    const search = request.input('search')
+
+    if(search) {
+      const posts = await Post.query().where('title', 'like', `%${search}%`).paginate(page, limit)
+
+      return view.render('welcome', { posts })
+    }
+
     const posts = await Post.query().paginate(page, limit)
 
     return view.render('welcome', { posts })
