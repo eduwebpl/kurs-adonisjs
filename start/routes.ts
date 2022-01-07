@@ -35,3 +35,4 @@ Route.get('/posts/:slug', 'PostsController.show').as('show-post')
 
 Route.get('/register', 'AuthController.showRegister').as('show-register')
 Route.post('/register', 'AuthController.register').as('register')
+Route.post('/logout', 'AuthController.logout').as('logout')
