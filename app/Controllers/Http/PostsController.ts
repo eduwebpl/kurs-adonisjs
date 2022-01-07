@@ -1,6 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Post from "App/Models/Post";
-import {rules, schema} from "@ioc:Adonis/Core/Validator";
+import CreatePostValidator from "App/Validators/CreatePostValidator";
 
 export default class PostsController {
   public async index({ view, request }: HttpContextContract) {
@@ -25,29 +25,9 @@ export default class PostsController {
   }
 
   public async store({ request, response }: HttpContextContract) {
-    const validationSchema = schema.create({
-      title: schema.string({ trim: true }, [
-        rules.minLength(10)
-      ]),
-      content: schema.string({}, [
-        rules.minLength(20)
-      ])
-    })
+    const post = await request.validate(CreatePostValidator)
 
-    const validatedData = await request.validate({
-      schema: validationSchema,
-      messages: {
-        'title.required': 'Tytuł wpisu jest wymagany',
-        'title.minLength': 'Tytuł musi zawierać minimum 10 znaków',
-        'content.required': 'Treść wpisu jest wymagana',
-        'content.maxLenght': 'Treść nie może być dłuższa niż 255 znaków',
-      }
-    })
-
-    await Post.create({
-      title: validatedData.title,
-      content: validatedData.content
-    })
+    await Post.create(post)
 
     return response.redirect('/')
   }
