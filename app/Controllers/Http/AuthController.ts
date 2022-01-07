@@ -1,6 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import UserValidator from "App/Validators/UserValidator";
 import User from "App/Models/User";
+import {Attachment} from "@ioc:Adonis/Addons/AttachmentLite";
 
 export default class AuthController {
   public showRegister({ view }: HttpContextContract) {
@@ -37,5 +38,20 @@ export default class AuthController {
     await auth.logout()
 
     return response.redirect().toRoute('/')
+  }
+
+  public showEdit({ view }: HttpContextContract) {
+    return view.render('auth/edit')
+  }
+
+  public async update({ request, view, auth }: HttpContextContract) {
+    const user = await auth.authenticate()
+    const avatar = request.file('avatar')
+
+    user.avatar = Attachment.fromFile(avatar)
+
+    await user.save()
+
+    return view.render('auth/edit', { user })
   }
 }

@@ -33,7 +33,8 @@
     "adonis-mix-asset",
     "@adonisjs/lucid",
     "@adonisjs/lucid-slugify",
-    "@adonisjs/auth"
+    "@adonisjs/auth",
+    "@adonisjs/attachment-lite"
   ],
   "metaFiles": [
     {

@@ -502,6 +502,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 .h-screen {
   height: 100vh;
 }
+.h-16 {
+  height: 4rem;
+}
+.h-24 {
+  height: 6rem;
+}
 .w-1\/2 {
   width: 50%;
 }
@@ -525,6 +531,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .w-11\/12 {
   width: 91.666667%;
+}
+.w-16 {
+  width: 4rem;
+}
+.w-24 {
+  width: 6rem;
 }
 .transform {
   transform: var(--tw-transform);
@@ -578,6 +590,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .rounded-sm {
   border-radius: 0.125rem;
+}
+.rounded-full {
+  border-radius: 9999px;
 }
 .border {
   border-width: 1px;
