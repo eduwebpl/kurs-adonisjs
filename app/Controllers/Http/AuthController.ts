@@ -22,10 +22,10 @@ export default class AuthController {
   }
 
   public async login({ request, auth, response }: HttpContextContract) {
-    const { email, password } = request.only(['email', 'password'])
+    const { uid, password } = request.only(['uid', 'password'])
 
     try {
-      await auth.attempt(email, password)
+      await auth.attempt(uid, password)
 
       return response.redirect().toRoute('home')
     } catch(err) {
