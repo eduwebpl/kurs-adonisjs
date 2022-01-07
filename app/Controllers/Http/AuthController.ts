@@ -48,6 +48,7 @@ export default class AuthController {
     const user = await auth.authenticate()
     const avatar = request.file('avatar')
 
+    // @ts-ignore
     user.avatar = Attachment.fromFile(avatar)
 
     await user.save()

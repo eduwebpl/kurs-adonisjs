@@ -10,12 +10,12 @@ export default class PostsController {
     const search = request.input('search')
 
     if(search) {
-      const posts = await Post.query().where('title', 'like', `%${search}%`).paginate(page, limit)
+      const posts = await Post.query().preload('user').where('title', 'like', `%${search}%`).paginate(page, limit)
 
       return view.render('welcome', { posts })
     }
 
-    const posts = await Post.query().orderBy('id', 'desc').paginate(page, limit)
+    const posts = await Post.query().preload('user').orderBy('id', 'desc').paginate(page, limit)
 
     return view.render('welcome', { posts })
   }
@@ -24,10 +24,10 @@ export default class PostsController {
     return view.render('posts/createOrEdit')
   }
 
-  public async store({ request, response, session }: HttpContextContract) {
+  public async store({ request, response, session, auth }: HttpContextContract) {
     const post = await request.validate(CreatePostValidator)
 
-    await Post.create(post)
+    await auth.user!.related('posts').create(post)
 
     session.flash('notification', 'Post został poprawnie dodany!')
 

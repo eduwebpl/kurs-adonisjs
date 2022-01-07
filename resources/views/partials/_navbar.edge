@@ -11,7 +11,7 @@
           {{ csrfField() }}
         </form>
       </a>
-      <a href="{{ route('edit-profile') }}">Edytuj konto</a>
+      <a href="{{ route('edit-profile') }}" class="text-blue-700 transition ease-in-out duration-150 hover:text-blue-900">Edytuj konto</a>
       <a href="{{ route('create-form') }}" class="bg-blue-700 text-white font-semibold text-xl p-4 rounded-lg hover:bg-blue-900">Dodaj wpis</a>
     @else
       <a href="{{ route('show-login') }}" class="text-blue-700 transition ease-in-out duration-150 hover:text-blue-900">Zaloguj się</a>
