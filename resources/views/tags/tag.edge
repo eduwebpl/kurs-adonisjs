@@ -1,0 +1,16 @@
+@layout('layouts/main')
+
+@section('content')
+  <div class="w-1/2 mx-auto my-12 p-8 text-2xl">
+    <strong class="mb-6 block">Tag name: <span class="text-blue-700">{{ tag.slug }}</span></strong>
+
+    <ul>
+      @each(posts in tag.posts)
+      <li class="p-8 bg-white mb-4">
+        <a href="{{ route('show-post', { slug: posts.slug }) }}">{{ posts.title }}</a>
+        <p class="text-base">{{ posts.user.name }}</p>
+      </li>
+      @endeach
+    </ul>
+  </div>
+@endsection

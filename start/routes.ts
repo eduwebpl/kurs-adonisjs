@@ -47,3 +47,7 @@ Route.post('/edit-profile', 'AuthController.update').as('update-profile')
 // Comments
 
 Route.post('/posts/:post_id/comments', 'CommentsController.store').as('create-comment')
+
+// Tags
+
+Route.get('/tags/:tag', 'TagsController.show').as('tag')

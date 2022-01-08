@@ -18,6 +18,12 @@
       })
 
       @!input({
+      label: 'Tag',
+      name: 'tag',
+      value: flashMessages.get('title') ?? post?.title,
+      })
+
+      @!input({
       label: 'Treść wpisu',
       type: 'textarea',
       name: 'content',

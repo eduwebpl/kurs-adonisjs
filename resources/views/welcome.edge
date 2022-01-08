@@ -8,7 +8,16 @@
     <li class="my-6 p-8 rounded-md bg-white w-1/2">
       <a href="{{ route('show-post', [post.slug]) }}">
         <h1 class="text-3xl text-blue-600 font-bold hover:text-blue-800">{{ post.title }}</h1>
-        <h3>{{ post.user.name }}</h3>
+        <div class="text-xl flex gap-2 text-gray-400 items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+          </svg>
+          {{ post.user.name }}
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+          </svg>
+          {{ post.createdAt.toFormat('dd.LL.yyyy') }}
+        </div>
         <p class="mt-6 text-gray-700 text-xl">{{ excerpt(post.content, 250) }}</p>
       </a>
     </li>

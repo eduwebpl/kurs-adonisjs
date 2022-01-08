@@ -1,6 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Post from "App/Models/Post";
 import CreatePostValidator from "App/Validators/CreatePostValidator";
+import Tag from "App/Models/Tag";
 
 export default class PostsController {
   public async index({ view, request }: HttpContextContract) {
@@ -26,8 +27,16 @@ export default class PostsController {
 
   public async store({ request, response, session, auth }: HttpContextContract) {
     const post = await request.validate(CreatePostValidator)
+    const tag = request.input('tag')
 
-    await auth.user!.related('posts').create(post)
+    await Tag.firstOrCreate({ name: tag })
+    const singleTag = await Tag.findByOrFail('name', tag)
+
+    // @ts-ignore
+    post.user_id = auth.user!.id;
+
+    const posts = await Post.create(post)
+    posts.related('tags').attach([singleTag.id])
 
     session.flash('notification', 'Post został poprawnie dodany!')
 
@@ -35,9 +44,17 @@ export default class PostsController {
   }
 
   public async show({ params, view }: HttpContextContract) {
-    const post = await Post.findByOrFail('slug', params.slug)
+    // const post = await Post.findByOrFail('slug', params.slug)
+    //
+    // await post.preload('comments', query => query.preload('user'))
 
-    await post.preload('comments', query => query.preload('user'))
+    const post = await Post
+      .query()
+      .where('slug', params.slug)
+      .preload('comments', query => query.preload('user'))
+      .preload('user')
+      .preload('tags')
+      .firstOrFail()
 
     return view.render('posts/show', { post })
   }
