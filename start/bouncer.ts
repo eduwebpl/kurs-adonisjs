@@ -6,9 +6,6 @@
  */
 
 import Bouncer from '@ioc:Adonis/Addons/Bouncer'
-import User from "App/Models/User";
-import Role from "Contracts/enums/Role";
-import Post from "App/Models/Post";
 
 /*
 |--------------------------------------------------------------------------
@@ -33,20 +30,6 @@ import Post from "App/Models/Post";
 |****************************************************************
 */
 export const { actions } = Bouncer
-  .before((user: User | null) => {
-    if(user?.roleId === Role.ADMIN) {
-      return true
-    }
-  })
-  .define('createPost', (user: User) => {
-    return user.roleId === Role.MODERATOR;
-  })
-  .define('editPost', (user: User, post: Post) => {
-    return post.userId === user.id;
-  })
-  .define('destroyPost', (user: User, post: Post) => {
-    return post.userId === user.id;
-  })
 
 /*
 |--------------------------------------------------------------------------
@@ -71,4 +54,6 @@ export const { actions } = Bouncer
 | NOTE: Always export the "policies" const from this file
 |****************************************************************
 */
-export const { policies } = Bouncer.registerPolicies({})
+export const { policies } = Bouncer.registerPolicies({
+  PostPolicy: () => import('App/Policies/PostPolicy')
+})

@@ -38,7 +38,7 @@ export default class PostsController {
     const posts = await Post.create(post)
     posts.related('tags').attach([singleTag.id])
 
-    await bouncer.authorize('createPost')
+    await bouncer.with('PostPolicy').authorize('create')
 
     session.flash('notification', 'Post został poprawnie dodany!')
 
@@ -77,7 +77,7 @@ export default class PostsController {
 
     await post.save()
 
-    await bouncer.authorize('editPost', post)
+    await bouncer.with('PostPolicy').authorize('update', post)
 
     return response.redirect('/')
   }
@@ -87,7 +87,7 @@ export default class PostsController {
 
     await post.delete()
 
-    await bouncer.authorize('destroyPost', post)
+    await bouncer.with('PostPolicy').authorize('delete', post)
 
     return response.redirect().toRoute('home')
   }
