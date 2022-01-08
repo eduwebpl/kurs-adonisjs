@@ -25,7 +25,7 @@ export default class PostsController {
     return view.render('posts/createOrEdit')
   }
 
-  public async store({ request, response, session, auth }: HttpContextContract) {
+  public async store({ request, response, session, auth, bouncer }: HttpContextContract) {
     const post = await request.validate(CreatePostValidator)
     const tag = request.input('tag')
 
@@ -37,6 +37,8 @@ export default class PostsController {
 
     const posts = await Post.create(post)
     posts.related('tags').attach([singleTag.id])
+
+    await bouncer.authorize('createPost')
 
     session.flash('notification', 'Post został poprawnie dodany!')
 
@@ -65,7 +67,7 @@ export default class PostsController {
     return view.render('posts/createOrEdit', { post })
   }
 
-  public async update({ request, response, params }: HttpContextContract) {
+  public async update({ request, response, params, bouncer }: HttpContextContract) {
     const post = await Post.findOrFail(params.id)
 
     post.merge({
@@ -75,13 +77,17 @@ export default class PostsController {
 
     await post.save()
 
+    await bouncer.authorize('editPost', post)
+
     return response.redirect('/')
   }
 
-  public async destroy({ params, response }: HttpContextContract) {
+  public async destroy({ params, response, bouncer }: HttpContextContract) {
     const post = await Post.findOrFail(params.id)
 
     await post.delete()
+
+    await bouncer.authorize('destroyPost', post)
 
     return response.redirect().toRoute('home')
   }
